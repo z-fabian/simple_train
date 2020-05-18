@@ -7,8 +7,6 @@ from utils import evaluate
 
 TEST_X_PATH = '../data/resnet18-cifar100-embeddings.csv'
 TEST_Y_PATH = '../data/resnet18-cifar100-labels.csv'
-# TEST_X_PATH = '../data/resnet18-imagenet-embeddings.csv'
-# TEST_Y_PATH = '../data/resnet18-imagenet-labels.csv'
 CHECKPOINT_PATH = './checkpoints/resnet_cifar100'
 TEST_BATCH = 64
 NUM_CLASSES = 20
