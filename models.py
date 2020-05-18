@@ -3,20 +3,21 @@ from tensorflow.keras import layers
 
 
 class OneHidden(tf.keras.Model):
-    def __init__(self, hidden_units, num_classes, use_bias=False):
+    def __init__(self, hidden_units, num_classes, use_bias=False, use_relu=True):
         super(OneHidden, self).__init__()
         self.hidden_layer = Linear(hidden_units, use_bias, name='hidden_layer')
         self.output_layer = Linear(num_classes, use_bias, name='output_layer')
+        self.use_relu = use_relu
 
     def call(self, inputs):
         x = self.hidden_layer(inputs)
-        x = tf.nn.relu(x)
+        if self.use_relu:
+            x = tf.nn.relu(x)
         x = self.output_layer(x)
         return x
 
 
 class Linear(layers.Layer):
-
     def __init__(self, hidden_units, use_bias=False, **kwargs):
         super(Linear, self).__init__(**kwargs)
         self.hidden_units = hidden_units
