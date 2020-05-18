@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-from data import create_datasets, get_csv
+from data import create_dataset, get_csv
 from models import OneHidden
 from utils import evaluate
 
@@ -21,13 +21,8 @@ x_train, y_train, x_val, y_val = get_csv(TRAIN_X_PATH), get_csv(TRAIN_Y_PATH), g
 y_train = tf.squeeze(tf.one_hot(y_train.astype(np.int32), depth=NUM_CLASSES), axis=1)
 y_val = tf.squeeze(tf.one_hot(y_val.astype(np.int32), depth=NUM_CLASSES), axis=1)
 
-train_dataset, val_dataset = create_datasets(x_train=x_train,
-                                             y_train=y_train,
-                                             x_val=x_val,
-                                             y_val=y_val,
-                                             train_batch=TRAIN_BATCH,
-                                             val_batch=VAL_BATCH,
-                                             shuffle_train=True)
+train_dataset = create_dataset(x_train, y_train, batch_sz=TRAIN_BATCH, shuffle=False)
+val_dataset = create_dataset(x_val, y_val, batch_sz=VAL_BATCH, shuffle=False)
 
 # Create model and optimizer
 model = OneHidden(hidden_units=HIDDEN_UNITS, num_classes=NUM_CLASSES)
@@ -46,6 +41,8 @@ model.summary()
 
 # Train the model
 for epoch in range(EPOCHS):
+    loss_metric.reset_states()
+    acc_metric.reset_states()
     for step, (x_batch_train, y_batch_train) in enumerate(train_dataset):
         with tf.GradientTape() as tape:
             preds = model(x_batch_train)
@@ -60,8 +57,11 @@ for epoch in range(EPOCHS):
     print('epoch %s: train mean loss = %s train accuracy = %s' % (epoch, loss_metric.result(), acc_metric.result()))
 
 # Evaluate model
-loss, acc = evaluate(model, val_dataset)
-print('val mean loss = %s val accuracy = %s' % (loss, acc))
+train_loss, train_acc = evaluate(model, train_dataset)
+print('Final train loss = %s train accuracy = %s' % (train_loss, train_acc))
+
+val_loss, val_acc = evaluate(model, val_dataset)
+print('Final val loss = %s val accuracy = %s' % (val_loss, val_acc))
 
 # Save weights
 print('Saving model...')

@@ -8,11 +8,9 @@ def get_csv(path):
     return df.values.astype(np.float32)
 
 
-def create_datasets(x_train, y_train, x_val, y_val, train_batch=64, val_batch=64, shuffle_train=True):
-    train_dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train))
-    if shuffle_train:
-        train_dataset = train_dataset.shuffle(buffer_size=x_train.shape[0])
-    train_dataset = train_dataset.batch(train_batch)
-    val_dataset = tf.data.Dataset.from_tensor_slices((x_val, y_val))
-    val_dataset = val_dataset.batch(val_batch)
-    return train_dataset, val_dataset
+def create_dataset(x, y, batch_sz=64, shuffle=False):
+    dataset = tf.data.Dataset.from_tensor_slices((x, y))
+    if shuffle:
+        dataset = dataset.shuffle(buffer_size=x.shape[0])
+    dataset = dataset.batch(batch_sz)
+    return dataset
