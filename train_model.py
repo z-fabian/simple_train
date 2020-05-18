@@ -1,5 +1,4 @@
 import tensorflow as tf
-import numpy as np
 from data import create_dataset, get_cifar10_data
 from models import OneHidden
 from utils import evaluate
@@ -71,8 +70,9 @@ def train_model(args):
 
     print('Done!')
 
+
 if __name__ == '__main__':
     args = Args().parse_args()
-    np.random.seed(args.seed)
+    tf.random.set_seed(args.seed)
     train_model(args)
 

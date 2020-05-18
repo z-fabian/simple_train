@@ -1,5 +1,4 @@
 import argparse
-import pathlib
 
 
 class Args(argparse.ArgumentParser):
