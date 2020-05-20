@@ -1,7 +1,7 @@
 import tensorflow as tf
 from data import create_dataset, get_cifar10_data
 from models import OneHidden
-from utils import evaluate
+from utils import evaluate, save_model_and_config
 from args import Args
 
 
@@ -66,7 +66,7 @@ def train_model(args):
 
     # Save weights
     print('Saving model...')
-    model.save_weights(args.checkpoint_path)
+    save_model_and_config(args.checkpoint_path, model, args)
 
     print('Done!')
 
