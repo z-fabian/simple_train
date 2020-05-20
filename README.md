@@ -32,4 +32,3 @@ python run_model.py --checkpoint-path $CHECKPOINT_PATH \
 ## Requirements:
 
 - `tensorflow >= 2.0`
-- `numpy`
