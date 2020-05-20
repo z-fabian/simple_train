@@ -23,11 +23,11 @@ python train_model.py --checkpoint-path $OUTPUT_PATH \
 --optimizer adam --lr 0.001 --epochs 200
 ```
 
-To run the network make sure the architecture exactly matches the saved model:
+You can easily run the network from the saved model:
 ```
-python run_model.py --checkpoint-path $CHECKPOINT_PATH \
---architecture onehidden --hidden-units 128 --use-bias
+python run_model.py --checkpoint-path $CHECKPOINT_PATH
 ```
+The network architecture and other parameters are restored from the saved config file.
 
 ## Requirements:
 
