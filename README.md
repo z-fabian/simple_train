@@ -1,5 +1,5 @@
 # simple_train
-Simple no-frills code to train and evaluate a one hidden layer neural network in Tensorflow2.0. The supported dataset is currently CIFAR-10. Two models are available for training:
+Simple customizable code to train and evaluate a one hidden layer neural network in Tensorflow2.0. The supported dataset is currently CIFAR-10. Two models are available for training:
 - **'One-hidden'**: one hidden layer neural network with ReLU activations. Implements `f(x) = V*ReLU(W*x + b1) + b2`, where the bias terms `b1` and `b2` are optional.
 - **'Linear'**: same as 'One-hidden', but without ReLU activations.
 
